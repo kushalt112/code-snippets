@@ -1,0 +1,23 @@
+
+try{
+var engGR = new GlideRecord('sn_audit_engagement');
+engGR.addActiveQuery();
+engGR.query();
+while(engGR.next()){
+var gdt = new GlideDateTime(engGR.audit_period_start);
+var nowTime = new GlideDateTime();
+
+var duration = GlideDateTime.subtract(gdt, nowTime);
+duration.getMonth
+var days = duration.getDayPart();
+if(days == 90){
+	gs.eventQueue("sn_audit_advanced.eng.three.mnth.prior", engGR);
+}
+else if(days==30){
+gs.eventQueue("sn_audit_advanced.eng.one.mnth.prior", engGR);
+}
+}
+}
+catch(ex){
+gs.info('Exception'+ex);
+}
